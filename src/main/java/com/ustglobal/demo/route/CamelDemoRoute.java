@@ -14,7 +14,8 @@ import lombok.EqualsAndHashCode;
 
 public class CamelDemoRoute extends RouteBuilder {
 
-	private String routeId;
+	// The value of this property is injected from application.properties based on the profile chosen.
+	private String injectedName;
 
 	@Override
 	public void configure() throws Exception {
@@ -25,12 +26,12 @@ public class CamelDemoRoute extends RouteBuilder {
 		.routeId("InputFolderToTestSedaRoute")
 		.setHeader("myHeader", constant("MY_HEADER_CONSTANT_VALUE"))
 		.to("seda://testSeda")
-		.log("**** Input File Pushed To Output Folder *****");
+		.log("**** Input File Pushed To Output Folder ***** :"+injectedName);
 
 		from("seda://testSeda")
 		.routeId("TestSedaToOutputFolderRoute")
 		.to("file://{{outputFolder}}")
-		.log("***** myHeader: ${header.myHeader}");
+		.log("***** myHeader: ${header.myHeader} ***** :"+injectedName);
 		
 		// @formatter:on
 
