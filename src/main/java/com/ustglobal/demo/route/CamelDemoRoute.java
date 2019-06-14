@@ -9,7 +9,6 @@ import lombok.EqualsAndHashCode;
 
 @Component
 @ConfigurationProperties(prefix="camel-demo-route")
-
 @Data
 @EqualsAndHashCode(callSuper=true)
 
