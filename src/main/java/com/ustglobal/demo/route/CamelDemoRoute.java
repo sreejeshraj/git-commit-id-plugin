@@ -5,10 +5,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Component
-@ConfigurationProperties(prefix = "camel-demo-route")
+@ConfigurationProperties(prefix="camel-demo-route")
+
 @Data
+@EqualsAndHashCode(callSuper=true)
 
 public class CamelDemoRoute extends RouteBuilder {
 
