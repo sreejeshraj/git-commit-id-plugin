@@ -16,10 +16,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 
 @RunWith(CamelSpringBootRunner.class)
 //@MockEndpoints
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@ActiveProfiles("test")
 @UseAdviceWith
 @SpringBootApplication
 @SpringBootTest(classes = CamelDemoRouteTest.class)
