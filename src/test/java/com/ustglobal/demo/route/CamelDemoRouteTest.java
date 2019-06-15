@@ -2,6 +2,8 @@ package com.ustglobal.demo.route;
 
 import static org.junit.Assert.assertFalse;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -47,17 +49,17 @@ public class CamelDemoRouteTest {
 		});
 		// manual start camel
 		camelContext.start();
-		MockEndpoint mock = camelContext.getEndpoint("mock:result", MockEndpoint.class);
+		MockEndpoint mockResult = camelContext.getEndpoint("mock:result", MockEndpoint.class);
 
 		// Given
 		String message = "sampleMessage";
-		mock.expectedBodiesReceived(message);
+		mockResult.expectedBodiesReceived(message);
 
 		// When
 		producerTemplate.sendBody("seda:start", message);
 
 		// Then
-		mock.assertIsSatisfied();
+		mockResult.assertIsSatisfied();
 
 	}
 	
@@ -73,22 +75,36 @@ public class CamelDemoRouteTest {
 			@Override
 			public void configure() throws Exception {
 				//replaceFromWith("seda:start");
-				weaveAddLast().to("mock:result");
+				//weaveAddLast().to("mock:result");
+				//mockEndpointsAndSkip("file://{{outputFolder}}");
+				
+				interceptSendToEndpoint("file://*")
+				.skipSendToOriginalEndpoint()
+				.to("mock:result");
+				/*.process(new Processor() {
+					
+					@Override
+					public void process(Exchange exchange) throws Exception {
+						// TODO Auto-generated method stub
+						
+					}
+				});*/
+				
 			}
 		});
 		// manual start camel
 		camelContext.start();
-		MockEndpoint mock = camelContext.getEndpoint("mock:result", MockEndpoint.class);
+		MockEndpoint mockResult = camelContext.getEndpoint("mock:result", MockEndpoint.class);
 
 		// Given
 		String message = "sampleMessage";
-		mock.expectedBodiesReceived(message);
+		mockResult.expectedBodiesReceived(message);
 
 		// When
 		producerTemplate.sendBody("seda:testSeda", message);
 
 		// Then
-		mock.assertIsSatisfied();
+		mockResult.assertIsSatisfied();
 
 	}
 
