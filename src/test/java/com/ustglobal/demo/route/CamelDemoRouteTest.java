@@ -2,8 +2,6 @@ package com.ustglobal.demo.route;
 
 import static org.junit.Assert.assertFalse;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
