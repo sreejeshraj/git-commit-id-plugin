@@ -1,5 +1,6 @@
 package com.ustglobal.demo.route;
 
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class CamelDemoRoute extends RouteBuilder {
 		.routeId("InputFolderToTestSedaRoute")
 		.setHeader("myHeader", constant("MY_HEADER_CONSTANT_VALUE"))
 		.to("seda://testSeda")
-		.log("**** Input File Pushed To Output Folder ***** :"+injectedName);
+		.log(LoggingLevel.DEBUG, "**** Input File Pushed To Output Folder ***** :"+injectedName);
 
 		from("seda://testSeda")
 		.routeId("TestSedaToOutputFolderRoute")
