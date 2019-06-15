@@ -1,23 +1,21 @@
 package com.ustglobal.demo.route;
 
-import org.apache.camel.builder.RouteBuilder;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.apache.camel.test.spring.CamelSpringBootRunner;
+import org.apache.camel.test.spring.MockEndpoints;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+@RunWith(CamelSpringBootRunner.class)
+@MockEndpoints
+@SpringBootApplication
+@SpringBootTest(classes = CamelDemoRouteTest.class)
+public class CamelDemoRouteTest	{
 
-
-
-public class CamelDemoRouteTest extends RouteBuilder {
-	
-	
-
-	@Override
-	public void configure() throws Exception {
-		
-		
-
+	@Test
+	public void sampleTestMethod() throws Exception {
+		System.out.println("***** sampleTestMethod() invoked! *****");
 	}
 
 }
