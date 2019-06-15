@@ -2,7 +2,7 @@
 
 <routes xmlns="http://camel.apache.org/schema/spring">
 	<route id="xml-route-timer">
-		<from uri="timer://{{xmlroute.timer.name}}?period=10s" />
+		<from uri="timer://{{xmlroute.timer.name}}?period=3s" />
 		<!-- <marshal>
 			<zipFile />
 		</marshal> -->
