@@ -43,6 +43,8 @@ public class CamelDemoRouteTest {
 		routeToAdvice.adviceWith(camelContext, new AdviceWithRouteBuilder() {
 			@Override
 			public void configure() throws Exception {
+				//Producer template not required if file:// is enabled as it will pick the test file from the location specified
+				//	replaceFromWith("file://<YOUR_TEST_DATA_FOLDER>");
 				replaceFromWith("seda:start");
 				weaveAddLast().to("mock:result");
 			}
