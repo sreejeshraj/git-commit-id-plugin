@@ -51,17 +51,17 @@ public class CamelDemoRouteTest {
 		});
 		// manual start camel
 		camelContext.start();
-		MockEndpoint mockResult = camelContext.getEndpoint("mock:result", MockEndpoint.class);
+		MockEndpoint mockResultEndpoint = camelContext.getEndpoint("mock:result", MockEndpoint.class);
 
 		// Given
 		String message = "sampleMessage";
-		mockResult.expectedBodiesReceived(message);
+		mockResultEndpoint.expectedBodiesReceived(message);
 
 		// When
 		producerTemplate.sendBody("seda:start", message);
 
 		// Then
-		mockResult.assertIsSatisfied();
+		mockResultEndpoint.assertIsSatisfied();
 
 	}
 	
@@ -96,17 +96,17 @@ public class CamelDemoRouteTest {
 		});
 		// manual start camel
 		camelContext.start();
-		MockEndpoint mockResult = camelContext.getEndpoint("mock:result", MockEndpoint.class);
+		MockEndpoint mockResultEndpoint = camelContext.getEndpoint("mock:result", MockEndpoint.class);
 
 		// Given
 		String message = "sampleMessage";
-		mockResult.expectedBodiesReceived(message);
+		mockResultEndpoint.expectedBodiesReceived(message);
 
 		// When
 		producerTemplate.sendBody("seda:testSeda", message);
 
 		// Then
-		mockResult.assertIsSatisfied();
+		mockResultEndpoint.assertIsSatisfied();
 
 	}
 

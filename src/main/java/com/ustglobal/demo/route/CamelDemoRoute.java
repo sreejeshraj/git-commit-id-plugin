@@ -17,7 +17,7 @@ public class CamelDemoRoute extends RouteBuilder {
 
 	// The value of this property is injected from application.properties based on the profile chosen.
 	private String injectedName;
-
+	
 	@Override
 	public void configure() throws Exception {
 
