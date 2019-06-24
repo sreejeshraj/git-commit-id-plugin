@@ -22,6 +22,8 @@ public class CamelDemoRoute extends RouteBuilder {
 	public void configure() throws Exception {
 
 		// @formatter:off
+		
+		errorHandler(deadLetterChannel("seda:errorQueue").maximumRedeliveries(5).redeliveryDelay(1000));
 
 		from("file://{{inputFolder}}?delay=10s&noop=true")
 		.routeId("InputFolderToTestSedaRoute")

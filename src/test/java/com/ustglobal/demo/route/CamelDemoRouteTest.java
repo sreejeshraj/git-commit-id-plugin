@@ -80,6 +80,9 @@ public class CamelDemoRouteTest {
 				//weaveAddLast().to("mock:result");
 				//mockEndpointsAndSkip("file://{{outputFolder}}");
 				
+				/*interceptSendToEndpoint("seda:errorQueue")
+				.to("mock:error");*/
+				
 				interceptSendToEndpoint("file://*")
 				.skipSendToOriginalEndpoint()
 				.to("mock:result");
