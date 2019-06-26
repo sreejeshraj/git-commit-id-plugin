@@ -1,9 +1,15 @@
 package com.ustglobal.demo.route;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import java.util.concurrent.TimeUnit;
+
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.NotifyBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
@@ -110,6 +116,59 @@ public class CamelDemoRouteTest {
 
 		// Then
 		mockResultEndpoint.assertIsSatisfied();
+
+	}
+	
+	
+	@Test
+	public void testExceptionInInputFolderToTestSedaRoute() throws Exception {
+		// context should not be started because we enabled @UseAdviceWith
+		assertFalse(camelContext.getStatus().isStarted());
+
+		RouteDefinition routeToAdvice = camelContext.getRouteDefinition("InputFolderToTestSedaRoute");
+
+		routeToAdvice.adviceWith(camelContext, new AdviceWithRouteBuilder() {
+			@Override
+			public void configure() throws Exception {
+			
+				replaceFromWith("seda:start");
+				
+				interceptSendToEndpoint("seda://testSeda")
+				.skipSendToOriginalEndpoint()
+				.process(new Processor() {
+					
+					@Override
+					public void process(Exchange exchange) throws Exception {
+						throw new RuntimeException("CUSTOM EXCEPTION!!!");
+						
+					}
+				});
+			}
+		});
+		
+		NotifyBuilder errorRouteNotifier = new NotifyBuilder(camelContext)
+				   // .wereSentTo("seda:errorQueue")
+					.fromRoute("ErrorHandlingRoute*")
+				    .whenReceived(1)
+				    .create();
+		
+		
+		// manual start camel
+		camelContext.start();
+		
+		
+		
+		
+		
+		// Given
+		String message = "sampleMessage";
+		// When
+		producerTemplate.sendBody("seda:start", message);
+		
+		boolean done = errorRouteNotifier.matches(5, TimeUnit.SECONDS);
+		assertTrue("Should have thrown Exception and caught at errorQueue", done);
+
+		
 
 	}
 

@@ -36,6 +36,14 @@ public class CamelDemoRoute extends RouteBuilder {
 		.to("file://{{outputFolder}}")
 		.log("***** myHeader: ${header.myHeader} ***** :"+injectedName);
 		
+		//Error Handling route!
+		
+		from("seda:errorQueue")
+		.routeId("ErrorHandlingRoute")
+		.log("***** error body: ${body} *****")
+		.log("***** Exception Caught: ${exception} *****");
+		
+		
 		// @formatter:on
 
 	}
