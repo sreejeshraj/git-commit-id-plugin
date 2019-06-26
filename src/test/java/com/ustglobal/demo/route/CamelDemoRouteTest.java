@@ -15,6 +15,7 @@ import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.test.spring.CamelSpringBootRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,6 +121,7 @@ public class CamelDemoRouteTest {
 	}
 	
 	
+	@Ignore
 	@Test
 	public void testExceptionInInputFolderToTestSedaRoute() throws Exception {
 		// context should not be started because we enabled @UseAdviceWith
