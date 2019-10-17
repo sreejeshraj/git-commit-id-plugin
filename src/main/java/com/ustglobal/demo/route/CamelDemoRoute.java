@@ -27,12 +27,17 @@ public class CamelDemoRoute extends RouteBuilder {
 
 		from("file://{{inputFolder}}?delay=10s&noop=true")
 		.routeId("InputFolderToTestSedaRoute")
+		.setProperty("myProperty", constant("myPropertyValue"))
 		.setHeader("myHeader", constant("MY_HEADER_CONSTANT_VALUE"))
 		.to("seda://testSeda")
+		.log("***** InputFolderToTestSedaRoute - exchangeProperty.myProperty:${exchangeProperty.myProperty}")
+		.log("***** InputFolderToTestSedaRoute - exchangeId:${exchangeId}")
 		.log(LoggingLevel.DEBUG, "**** Input File Pushed To Output Folder ***** :"+injectedName);
 
 		from("seda://testSeda")
 		.routeId("TestSedaToOutputFolderRoute")
+		.log("***** TestSedaToOutputFolderRoute - exchangeProperty.myProperty:${exchangeProperty.myProperty}")
+		.log("***** TestSedaToOutputFolderRoute - exchangeId:${exchangeId}")
 		.to("file://{{outputFolder}}")
 		.log("***** myHeader: ${header.myHeader} ***** :"+injectedName);
 		
