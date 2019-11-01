@@ -29,7 +29,7 @@
 	</appender>
 	<!-- Profile based log configuration -->
 	<springProfile name="dev">
-		<root level="DEBUG">
+		<root level="INFO">
 			<appender-ref ref="RollingFile" />
 			<appender-ref ref="Console" />
 		</root>
@@ -40,8 +40,13 @@
 			<appender-ref ref="Console" />
 		</root>
 	</springProfile>
+	<springProfile name="default">
+		<root level="DEBUG">
+			<appender-ref ref="Console" />
+		</root>
+	</springProfile>
 	<!-- LOG everything at INFO level -->
-	<root level="info">
+	<root level="DEBUG">
 		<appender-ref ref="RollingFile" />
 		<appender-ref ref="Console" />
 	</root>
