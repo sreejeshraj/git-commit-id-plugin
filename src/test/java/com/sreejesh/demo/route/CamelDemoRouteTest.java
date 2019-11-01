@@ -1,4 +1,4 @@
-package com.ustglobal.demo.route;
+package com.sreejesh.demo.route;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

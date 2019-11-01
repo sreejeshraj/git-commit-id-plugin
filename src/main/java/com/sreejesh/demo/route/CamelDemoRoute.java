@@ -1,4 +1,4 @@
-package com.ustglobal.demo.route;
+package com.sreejesh.demo.route;
 
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
