@@ -7,3 +7,4 @@ Steps
 3. To build: mvn clean install
 4. Check the jar file name in target folder. It will have the git commit id in the file name.
 5. If the artifacts are not committed in git, the file name will be appended with "-dirty.jar"
+6. More details about the commit can be found in "git.properties" at <root>/target/classes folder
