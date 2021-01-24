@@ -10,3 +10,4 @@ Steps
 6. More details about the commit can be found in "git.properties" at <root>/target/classes folder
 7. To expose this information at actuator endpoint, refer
     https://rieckpil.de/howto-expose-git-information-with-spring-boots-actuator/
+8. Access info endpoint in actuator at http://localhost:8080/actuator/info once started
